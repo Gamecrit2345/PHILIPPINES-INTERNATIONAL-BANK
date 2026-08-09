@@ -1,93 +1,77 @@
 ```javascript
 let bankData = null;
 
-const accountInput = document.getElementById("account");
-const passwordInput = document.getElementById("password");
-const showPasswordButton = document.getElementById("showPassword");
+const account = document.getElementById("account");
+const password = document.getElementById("password");
+const showPassword = document.getElementById("showPassword");
 const loginButton = document.getElementById("loginButton");
 const loginMessage = document.getElementById("loginMessage");
 
 
-// LOAD ACCOUNT DATA
-
+// Load bank data
 fetch("data.json")
-  .then(response => {
+  .then(function(response) {
     if (!response.ok) {
-      throw new Error("data.json could not be loaded");
+      throw new Error("Could not load data.json");
     }
 
     return response.json();
   })
-  .then(data => {
+  .then(function(data) {
     bankData = data;
   })
-  .catch(() => {
+  .catch(function() {
     loginMessage.textContent =
-      "Bank system data could not be loaded.";
+      "Unable to connect to bank data.";
   });
 
 
-// SHOW / HIDE PASSWORD
+// Show / Hide password
+showPassword.addEventListener("click", function() {
 
-showPasswordButton.addEventListener("click", function () {
-
-  if (passwordInput.type === "password") {
-
-    passwordInput.type = "text";
-    showPasswordButton.textContent = "Hide";
-
+  if (password.type === "password") {
+    password.type = "text";
+    showPassword.textContent = "Hide";
   } else {
-
-    passwordInput.type = "password";
-    showPasswordButton.textContent = "Show";
-
+    password.type = "password";
+    showPassword.textContent = "Show";
   }
 
 });
 
 
-// LOGIN
-
-loginButton.addEventListener("click", function () {
+// Sign In
+loginButton.addEventListener("click", function() {
 
   loginMessage.textContent = "";
 
   if (!bankData) {
     loginMessage.textContent =
-      "Please wait for the bank system to load.";
-
+      "Bank system is still loading.";
     return;
   }
 
-  const account = accountInput.value.trim();
-  const password = passwordInput.value;
+  const accountNumber = account.value.trim();
+  const passwordValue = password.value;
 
-  if (!account || !password) {
-
+  if (accountNumber === "" || passwordValue === "") {
     loginMessage.textContent =
       "Please enter your account number and password.";
-
     return;
   }
 
-  const user = bankData.accounts.find(function (item) {
-
+  const user = bankData.accounts.find(function(item) {
     return (
-      item.account === account &&
-      item.password === password
+      item.account === accountNumber &&
+      item.password === passwordValue
     );
-
   });
 
-
   if (!user) {
-
     loginMessage.textContent =
       "Invalid account number or password.";
-
     return;
   }
-
 
   localStorage.setItem(
     "pibUser",
@@ -99,33 +83,20 @@ loginButton.addEventListener("click", function () {
     })
   );
 
+  document.getElementById("loginPage").classList.add("hidden");
+  document.getElementById("bankPage").classList.remove("hidden");
 
-  loginMessage.textContent =
-    "Login successful.";
+  document.getElementById("userName").textContent =
+    user.name;
 
+  document.getElementById("accountNumber").textContent =
+    "•••• " + user.account.slice(-4);
 
-  setTimeout(function () {
-
-    document.getElementById("loginPage")
-      .classList.add("hidden");
-
-    document.getElementById("bankPage")
-      .classList.remove("hidden");
-
-    document.getElementById("userName")
-      .textContent = user.name;
-
-    document.getElementById("accountNumber")
-      .textContent = "•••• " + user.account.slice(-4);
-
-    document.getElementById("balance")
-      .textContent =
-        new Intl.NumberFormat("en-PH", {
-          style: "currency",
-          currency: "PHP"
-        }).format(user.balance);
-
-  }, 500);
+  document.getElementById("balance").textContent =
+    new Intl.NumberFormat("en-PH", {
+      style: "currency",
+      currency: "PHP"
+    }).format(user.balance);
 
 });
 ```
