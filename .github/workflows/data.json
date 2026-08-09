@@ -1,0 +1,80 @@
+```json
+{
+  "bank": {
+    "name": "Philippine International Bank",
+    "shortName": "PIB",
+    "version": "1.0.1",
+    "developer": "Tenzon Corporation"
+  },
+
+  "accounts": [
+    {
+      "account": "100000000001",
+      "password": "123456",
+      "name": "Juan Dela Cruz",
+      "balance": 50000,
+      "currency": "PHP"
+    },
+    {
+      "account": "100000000002",
+      "password": "123456",
+      "name": "Maria Santos",
+      "balance": 85000,
+      "currency": "PHP"
+    }
+  ],
+
+  "transferServices": [
+    "GCash",
+    "Maya",
+    "KOOP",
+    "Visa"
+  ],
+
+  "languages": {
+    "en": {
+      "welcome": "Welcome back",
+      "balance": "Available Balance",
+      "addBalance": "Add More Balance",
+      "transfer": "Transfer",
+      "transactions": "Transactions",
+      "security": "Security",
+      "settings": "Settings",
+      "logout": "Logout"
+    },
+
+    "tl": {
+      "welcome": "Maligayang pagbabalik",
+      "balance": "Kasalukuyang Balanse",
+      "addBalance": "Magdagdag ng Balanse",
+      "transfer": "Maglipat",
+      "transactions": "Mga Transaksyon",
+      "security": "Seguridad",
+      "settings": "Mga Setting",
+      "logout": "Mag-logout"
+    },
+
+    "zh": {
+      "welcome": "欢迎回来",
+      "balance": "可用余额",
+      "addBalance": "增加余额",
+      "transfer": "转账",
+      "transactions": "交易记录",
+      "security": "安全中心",
+      "settings": "设置",
+      "logout": "退出登录"
+    },
+
+    "ja": {
+      "welcome": "おかえりなさい",
+      "balance": "利用可能残高",
+      "addBalance": "残高を追加",
+      "transfer": "送金",
+      "transactions": "取引履歴",
+      "security": "セキュリティ",
+      "settings": "設定",
+      "logout": "ログアウト"
+    }
+  }
+}
+```
